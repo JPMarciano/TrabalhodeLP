@@ -1,5 +1,5 @@
 from Pessoa import Pessoa
-
+import numpy as np
 
 '''
 Um algoritmo para para gerar populaçoes de tamanho arbitrario, que apresentem as mesmas
@@ -13,4 +13,5 @@ class Populacao:
         self.individuos = []
 
     def amostra(self, n):
-        pass
+        amostrapop = np.random.choice(self.individuos, n)
+        return amostrapop
