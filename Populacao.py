@@ -7,16 +7,15 @@ Um algoritmo para para gerar populaçoes de tamanho arbitrario, que apresentem a
 estatisticas da amostra da PNAD, com respeito a media e coeficiente de variaçao.
 '''
 
+
 class Populacao:
     def __init__(self, tamanho=1000):
         self.tamanho = tamanho
         self.individuos = []
 
-        porcentagem = (1/100)*[[2.3, 6.5, 10.8, 24.4, 34.8, 12.6, 3.1, 5.5], [], [], [], []]  # lista das porcentagens de pessoas em cada categoria
+        porcentagem = (1/100)*[[2.3, 6.5, 10.8, 24.4, 34.8, 12.6, 3.1, 5.5], [22.0, 78.0], [82.2, 17.8], [], []]  # lista das porcentagens de pessoas em cada categoria
         dv = [[], [], [], [], []]  # desvio padrao de cada categoria
         faixas = [[], [], [], [], []]
-
-
 
     def amostra(self, n):
         amostrapop = np.random.choice(self.individuos, n)
