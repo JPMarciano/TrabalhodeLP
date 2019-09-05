@@ -32,16 +32,18 @@ class Populacao:
     def __init__(self, tamanho=1000):
         self.tamanho = tamanho
         self.individuos = []
-        
-        cat = np.array([[], [], [], [], []])
-        
+
+        cat = np.array([[0, 0, 0, 0, 0, 0, 0], [0, 0], [0, 0], [0, 0], [0, 0]])
+
         # lista das porcentagens de pessoas em cada categoria
-        porcentagem = np.array([[2.3, 6.5, 10.8, 24.4, 34.8, 12.6, 3.1, 5.5], [], [], [], []]) * (1 / 100)
-        # desvio padrao de cada categoria
-        dv = np.array([[], [], [], [], []]) * (1 / 100)
-        
-        faixas = np.array([[], [], [], [], []])
-        
+        porcentagem = np.array([[.023, .065, .108, .244, .348, .126, .031, .055], [.22, .78],
+                                [.822, .178], [.562, .438], [.577, .423]])
+        # CV de cada categoria
+        dv = np.array([[.241, .133, .109, .069, .055, .104, .225, .170], [.081, .023],
+                       [.018, .083], [.032, .042], [.033, .044]])
+
+        faixas = np.array([[0, 0, 0, 0, 0, 0, 0], [0, 0], [0, 0], [0, 0], [0, 0]])
+
         for u in range(5):
             v = dv[u]
             v = np.array(v)
@@ -51,10 +53,11 @@ class Populacao:
         for q in range(5):
             v = dv[q]
             v = np.array(v)
-            e = random.uniform(-1, 1)
-            v = v * e
+            e = uniform(-1, 1)
+            for i in range(len(v)):
+                v[i] = v[i] * e
             r = porcentagem[q]
-            r = np.array[r]
+            r = np.array(r)
             faixas[q] = r + v
         c = 0
         for j in faixas:
@@ -65,16 +68,15 @@ class Populacao:
         inicio = np.array(list(range(tamanho)))
         np.random.shuffle(inicio)
         d = 0
-        for i in cat:
-            ind3 = cat.index(i)
+        for i in range(len(cat)):
             p = 0
-            for j in range(len(i)):
-                for k in range(p, i[j] + p):
-                    popfin[inicio[k], ind3] = j
-                p += i[j - 1]
+            for j in range(len(cat[i])):
+                for k in range(p, int(cat[i][j]) + p):
+                    popfin[inicio[k], i] = j
+                p += int(cat[i][j])
 
         self.individuos = [Pessoa(g) for g in popfin]
 
     def amostra(self, n):
-        amostrapop = np.random.choice(self.individuos, n)
-        return amostrapop
+        pop = np.random.choice(self.individuos, n)
+        return pop
