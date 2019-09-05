@@ -6,20 +6,26 @@ from random import *
 Um algoritmo para para gerar populaçoes de tamanho arbitrario, que apresentem as mesmas
 estatisticas da amostra da PNAD, com respeito a media e coeficiente de variaçao.
 '''
-def fun(a,k):
-    t=sum(a)
-    b=[]
-    c=a
-    for k in len(a):
-        b=b.append(a[k]/t)
-    for m in range(k)
-        z=random()
-            if z<=b[0]:
-            c[0]+=1    
-        for n in range(1,len(a)):
-            if z<=b[n] and z>=b[n-1]:
-                c[n]+=1
+def fun(a, w):
+    t = sum(a)
+    b = np.zeros(len(a))
+    c = np.zeros(len(a))
+    for k in range(len(a)):
+        b[k] = (a[k]/t)
+    for o in range(len(a)):
+        for d in range(len(a)-o-1):
+          b[len(a)-o-1] += b[d]
+    for m in range(w):
+        z = random()
+        if z <= b[0]:
+            c[0] += 1
+        else:
+          for n in range(1, len(a)):
+            if b[n-1] < z <= b[n]:
+                c[n] += 1
     return c
+print(fun([2,3,4,1,50,20,10,10],1000))
+
 
 
 class Populacao:
