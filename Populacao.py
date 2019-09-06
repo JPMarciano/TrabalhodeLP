@@ -1,5 +1,4 @@
 from Pessoa import Pessoa
-from random import uniform
 import numpy as np
 from random import *
 
@@ -8,6 +7,9 @@ Um algoritmo para para gerar populaçoes de tamanho arbitrario, que apresentem a
 estatisticas da amostra da PNAD, com respeito a media e coeficiente de variaçao.
 '''
 
+
+# Esta função recebe a porcentagem de pessoas em cada categoria e a população.
+# E ela retorna o a quantidade de pessoas em cada categoria.
 def fun(a, w):
     t = sum(a)
     b = np.zeros(len(a))
@@ -31,9 +33,6 @@ def fun(a, w):
 class Populacao:
     def __init__(self, tamanho=1000):
         self.tamanho = tamanho
-        self.individuos = []
-
-        cat = np.array([[0, 0, 0, 0, 0, 0, 0], [0, 0], [0, 0], [0, 0], [0, 0]])
 
         # lista das porcentagens de pessoas em cada categoria
         porcentagem = np.array([[.023, .065, .108, .244, .348, .126, .031, .055], [.22, .78],
@@ -43,7 +42,9 @@ class Populacao:
                        [.018, .083], [.032, .042], [.033, .044]])
 
         faixas = np.array([[0, 0, 0, 0, 0, 0, 0], [0, 0], [0, 0], [0, 0], [0, 0]])
+        cat = np.array([[0, 0, 0, 0, 0, 0, 0], [0, 0], [0, 0], [0, 0], [0, 0]])
 
+        # cálculo do desvio padrão
         for u in range(5):
             v = dv[u]
             v = np.array(v)
@@ -59,12 +60,17 @@ class Populacao:
             r = porcentagem[q]
             r = np.array(r)
             faixas[q] = r + v
+
+        # retorno da função fun
         c = 0
         for j in faixas:
             cat[c] = fun(j, tamanho)
             c += 1
 
+        # lista com informações para instancair pessoas
         popfin = np.zeros((tamanho, 5))
+
+        # criando essa lista popfin
         inicio = np.array(list(range(tamanho)))
         np.random.shuffle(inicio)
         d = 0
@@ -75,6 +81,7 @@ class Populacao:
                     popfin[inicio[k], i] = j
                 p += int(cat[i][j])
 
+        # indivíduos da população
         self.individuos = [Pessoa(g) for g in popfin]
 
     def amostra(self, n):
